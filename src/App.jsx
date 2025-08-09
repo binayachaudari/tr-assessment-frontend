@@ -1,7 +1,7 @@
-import Logo from './components/Logo'
-import CardType from './components/CardType'
-import { CARD_BRAND } from './constants/cardBrands'
 import ATMScreen from './components/ATMScreen'
+import CardType from './components/CardType'
+import Logo from './components/Logo'
+import { CARD_BRAND } from './constants/cardBrands'
 
 function App() {
   return (

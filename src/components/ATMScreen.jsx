@@ -1,4 +1,5 @@
-import React from 'react';
+import stickerGraf from '../assets/sticker_graf.png';
+import systems from '../assets/systems.png';
 import Button from './Button';
 
 // ATM button configuration
@@ -15,18 +16,31 @@ export default function ATMScreen({ title = 'Welcome to the ATM' }) {
   };
 
   return (
-    <div className="bg-[#72acce] flex flex-col justify-between p-4 border-4 border-gray-300 text-white font-mono w-60 h-50 relative">
-      <div className="text-center font-bold text-lg">{title}</div>
-
-      {ATM_BUTTONS.map((button) => (
-        <Button
-          key={button.id}
-          side={button.side}
-          index={button.index}
-          label={button.label}
-          onClick={() => handleButtonClick(button.id)}
+    <>
+      <div className="bg-[#72acce] flex flex-col justify-between p-4 border-4 border-gray-300 text-white font-mono w-60 h-50 relative">
+        <div className="text-center font-bold text-lg">{title}</div>
+        {ATM_BUTTONS.map((button) => (
+          <Button
+            key={button.id}
+            side={button.side}
+            index={button.index}
+            label={button.label}
+            onClick={() => handleButtonClick(button.id)}
+          />
+        ))}
+        <img
+          className="absolute -bottom-1/2 -left-2/10"
+          src={stickerGraf}
+          alt="ATM Decoration"
         />
-      ))}
-    </div>
+      </div>
+      <div className="relative w-60 flex justify-end items-end">
+        <img
+          className="mt-1 h-auto max-w-full object-contain"
+          src={systems}
+          alt="ATM Systems Panel"
+        />
+      </div>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import sprite from '../assets/creditcard_sprite.png';
 import {
   CARD_BRANDS,
@@ -12,20 +12,22 @@ export default function CardType({ activeBrand = null }) {
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
   const imgRef = useRef(null);
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     const img = imgRef.current;
     if (!img) return;
-    const totalWidth = img.naturalWidth;
-    const totalHeight = img.naturalHeight;
+
+    const { naturalWidth: totalWidth, naturalHeight: totalHeight } = img;
     setFrameSize({
       width: (totalWidth + CARD_BRAND_PADDING) / CARD_BRANDS.length,
       height: totalHeight / 2,
     });
-  };
+  }, []);
 
   const activeIndex = isValidCardBrand(activeBrand)
     ? getCardBrandIndex(activeBrand)
     : null;
+
+  const isFrameLoaded = frameSize.width > 0;
 
   return (
     <div className="flex justify-around items-center my-4">
@@ -36,7 +38,9 @@ export default function CardType({ activeBrand = null }) {
         className="hidden"
         onLoad={handleImageLoad}
       />
-      {frameSize.width > 0 &&
+
+      {/* Render card brand sprites */}
+      {isFrameLoaded &&
         CARD_BRANDS.map((brand, index) => {
           const isActive = activeIndex === index;
           const backgroundX = `-${index * frameSize.width}px`;
@@ -44,7 +48,7 @@ export default function CardType({ activeBrand = null }) {
 
           return (
             <div
-              key={index}
+              key={brand}
               className="bg-no-repeat"
               style={{
                 backgroundImage: `url(${sprite})`,
