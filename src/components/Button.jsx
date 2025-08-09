@@ -37,6 +37,7 @@ export default function Button({
         className={clsx(
           'relative w-8 h-5 bg-[#b9b9b9] border-t-2 border-b-2 rounded border-t-[#d4d4cf] border-b-[#909090]',
           "after:content-[''] after:absolute after:top-1/2 after:w-3 after:h-[2.5px] after:bg-[#909090] after:-translate-y-1/2",
+          'cursor-pointer',
           isLeft ? 'after:left-full' : 'after:right-full'
         )}
       />
