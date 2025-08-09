@@ -28,7 +28,7 @@ export default function CardType({ activeBrand = null }) {
     : null;
 
   return (
-    <div className="flex justify-around">
+    <div className="flex justify-around items-center my-4">
       <img
         ref={imgRef}
         src={sprite}
