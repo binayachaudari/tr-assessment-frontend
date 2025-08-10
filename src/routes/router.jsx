@@ -1,28 +1,36 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from '../App';
-import ProtectedRoute from '../components/ProtectedRoute';
-import EnterPinPage from '../pages/EnterPinPage';
-import MainPage from '../pages/MainPage';
-import WelcomePage from '../pages/WelcomePage';
-import BalancePage from '../pages/BalancePage';
-import WithdrawPage from '../pages/WithdrawPage';
-import DepositPage from '../pages/DepositPage';
-import ExitPage from '../pages/ExitPage';
+import { createBrowserRouter } from 'react-router-dom'
+import App from '../App'
+import GuestRoutes from '../components/GuestRoutes'
+import ProtectedRoute from '../components/ProtectedRoute'
+import BalancePage from '../pages/BalancePage'
+import DepositPage from '../pages/DepositPage'
+import EnterPinPage from '../pages/EnterPinPage'
+import ExitPage from '../pages/ExitPage'
+import MainPage from '../pages/MainPage'
+import WelcomePage from '../pages/WelcomePage'
+import WithdrawPage from '../pages/WithdrawPage'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      // Public routes
+      // routes
       {
         path: '/',
-        element: <WelcomePage />,
+        element: <GuestRoutes />,
+        children: [
+          {
+            path: '/',
+            element: <WelcomePage />,
+          },
+          {
+            path: '/enter-pin',
+            element: <EnterPinPage />,
+          },
+        ],
       },
-      {
-        path: '/enter-pin',
-        element: <EnterPinPage />,
-      },
+
       // Protected routes - all children require PIN authentication
       {
         path: '/',
@@ -52,4 +60,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+])

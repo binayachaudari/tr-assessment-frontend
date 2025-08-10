@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
-import ATMScreen from '../components/ATMScreen';
-import { ATM_BUTTONS } from '../constants/Buttons';
+import { useMemo } from 'react'
+import ATMScreen from '../components/ATMScreen'
+import { ATM_BUTTONS } from '../constants/Buttons'
+import { useNavigate } from 'react-router-dom'
 
 export default function WithdrawPage() {
+  const navigate = useNavigate()
   const buttonConfig = useMemo(() => {
     return {
       ...ATM_BUTTONS,
@@ -10,17 +12,17 @@ export default function WithdrawPage() {
       LEFT_4: {
         ...ATM_BUTTONS.LEFT_4,
         label: 'Back',
-        onClick: () => {},
+        onClick: () => navigate(-1),
       },
       RIGHT_4: {
         ...ATM_BUTTONS.RIGHT_4,
         label: 'Confirm',
         onClick: () => {},
       },
-    };
-  }, []);
+    }
+  }, [])
 
-  const buttons = Object.values(buttonConfig);
+  const buttons = Object.values(buttonConfig)
 
   const title = (
     <span>
@@ -28,7 +30,7 @@ export default function WithdrawPage() {
       Please Enter the amount you want to withdraw <br />
       $0.00
     </span>
-  );
+  )
 
-  return <ATMScreen title={title} buttons={buttons} />;
+  return <ATMScreen title={title} buttons={buttons} />
 }
