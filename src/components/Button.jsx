@@ -4,14 +4,21 @@ export default function Button({
   side = 'left',
   index = 0,
   onClick,
-  label = 'label',
+  label = null,
 }) {
   const isLeft = side === 'left';
-  const topOffset = 16 + index * 8; // Base 16 + 8 gap per index (in Tailwind units)
+
+  const offsetClasses = {
+    0: 'top-16',
+    1: 'top-24',
+    2: 'top-32',
+    3: 'top-40',
+  };
 
   const buttonContainerClasses = clsx(
     'absolute flex items-center',
-    isLeft ? '-left-12' : '-right-12'`top-${topOffset}`
+    offsetClasses[index],
+    isLeft ? '-left-12' : '-right-12'
   );
 
   const buttonClasses = clsx(
@@ -24,7 +31,7 @@ export default function Button({
   );
 
   const labelClasses = clsx(
-    'relative text-white font-mono text-sm',
+    'text-white font-mono text-xs font-bold',
     "before:content-[''] before:absolute before:top-1/2 before:w-3",
     'before:h-[2.5px] before:bg-white before:-translate-y-1/2'
   );
@@ -45,12 +52,12 @@ export default function Button({
   return (
     <div className={buttonContainerClasses}>
       {/* For right side, render label first, then button */}
-      {!isLeft && label && <LabelComponent className="mr-7" />}
+      {!isLeft && label && <LabelComponent className="relative mr-7" />}
 
       <button type="button" onClick={onClick} className={buttonClasses} />
 
       {/* For left side, render button first, then label */}
-      {isLeft && label && <LabelComponent className="ml-7" />}
+      {isLeft && label && <LabelComponent className="relative ml-7" />}
     </div>
   );
 }
