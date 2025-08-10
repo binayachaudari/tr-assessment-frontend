@@ -1,23 +1,22 @@
-import { useState } from 'react'
-import './App.css'
+import { Outlet } from 'react-router-dom'
+import CardType from './components/CardType'
+import Logo from './components/Logo'
+import { usePin } from './hooks/usePin'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { cardBrand } = usePin()
   return (
-    <>
-      <div>
-        <h1>Hello World</h1>
+    <div className="flex flex-col items-center justify-end h-screen bg-[#9475a2]">
+      <div className="flex justify-center items-center">
+        <Logo />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="bg-[#efeee3] w-100 h-3/4 border-t-10 border-[#b6b6b6]">
+        <div className="flex flex-col items-center justify-center">
+          <CardType activeBrand={cardBrand} />
+          <Outlet />
+        </div>
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    </div>
   )
 }
 
