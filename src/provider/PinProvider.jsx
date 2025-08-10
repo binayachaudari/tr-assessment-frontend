@@ -16,6 +16,8 @@ export function PinProvider({ children }) {
       setCardBrand(CARD_BRAND.VISA);
       return true;
     }
+    setEnteredPin('');
+    setCardBrand(null);
     return false;
   };
 
