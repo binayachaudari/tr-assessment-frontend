@@ -76,11 +76,17 @@ export function PinProvider({ children }) {
   })
 
   const authenticate = useCallback(
-    (pin) => {
+    (pin, handleError) => {
       return new Promise((resolve) => {
         authenticatePIN(pin, {
           onSuccess: () => resolve(true),
-          onError: () => resolve(false),
+          onError: (error) => {
+            handleError({
+              status: true,
+              message: error?.response?.data?.message,
+            })
+            return resolve(false)
+          },
         })
       })
     },

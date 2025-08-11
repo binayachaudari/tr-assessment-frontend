@@ -4,6 +4,7 @@ import ATMScreen from '../components/ATMScreen'
 import { ATM_BUTTONS } from '../constants/Buttons'
 import { transactionServices } from '../services/transactions.service'
 import { useMutation } from '@tanstack/react-query'
+import { MESSAGE_DISPLAY_TIME } from '../constants/errorMessages'
 
 export default function DepositPage() {
   const navigate = useNavigate()
@@ -13,10 +14,14 @@ export default function DepositPage() {
     mutate: deposit,
     error,
     isPending,
+    isSuccess,
+    data,
   } = useMutation({
     mutationFn: (amount) => transactionServices.deposit(amount),
     onSettled: () => {
-      navigate('/main')
+      setTimeout(() => {
+        navigate('/main')
+      }, MESSAGE_DISPLAY_TIME)
     },
   })
 
@@ -36,29 +41,32 @@ export default function DepositPage() {
     }
   }, [handleKeyPress])
 
+  const disableButtons = isSuccess || isPending || error
+
   const buttonConfig = useMemo(() => {
     return {
       ...ATM_BUTTONS,
 
       LEFT_4: {
         ...ATM_BUTTONS.LEFT_4,
-        label: 'Back',
-        onClick: () => navigate(-1),
+        label: disableButtons ? '' : 'Back',
+        onClick: disableButtons ? null : () => navigate(-1),
       },
       RIGHT_4: {
         ...ATM_BUTTONS.RIGHT_4,
-        label: 'Confirm',
-        onClick: () => amount > 0 && deposit(amount),
+        label: disableButtons ? '' : 'Confirm',
+        onClick: disableButtons ? null : () => amount > 0 && deposit(amount),
       },
     }
-  }, [amount, deposit])
+  }, [amount, deposit, disableButtons])
 
   const buttons = Object.values(buttonConfig)
 
   let title = ''
-
   if (isPending) {
     title = <span>Processing...</span>
+  } else if (isSuccess) {
+    title = data?.message || 'Deposit successful'
   } else if (error) {
     title = <span>{error?.response?.data?.message}</span>
   } else {

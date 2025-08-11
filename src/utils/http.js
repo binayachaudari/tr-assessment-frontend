@@ -28,10 +28,10 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error('API Error:', error)
-    if ([401, 403].includes(error.response.status)) {
+    if (error.response.status === 401) {
       removeSessionDetails()
+      window.location.href = '/'
     }
-    window.location.href = '/'
 
     return Promise.reject(error)
   },

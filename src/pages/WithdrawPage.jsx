@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import ATMScreen from '../components/ATMScreen'
 import { ATM_BUTTONS } from '../constants/Buttons'
 import { transactionServices } from '../services/transactions.service'
+import { MESSAGE_DISPLAY_TIME } from '../constants/errorMessages'
 
 export default function WithdrawPage() {
   const navigate = useNavigate()
@@ -13,10 +14,14 @@ export default function WithdrawPage() {
     mutate: withdraw,
     error,
     isPending,
+    data,
+    isSuccess,
   } = useMutation({
     mutationFn: (amount) => transactionServices.withdraw(amount),
     onSettled: () => {
-      navigate('/main')
+      setTimeout(() => {
+        navigate('/main')
+      }, MESSAGE_DISPLAY_TIME)
     },
   })
 
@@ -36,22 +41,24 @@ export default function WithdrawPage() {
     }
   }, [handleKeyPress])
 
+  const disableButtons = isSuccess || isPending || error
+
   const buttonConfig = useMemo(() => {
     return {
       ...ATM_BUTTONS,
 
       LEFT_4: {
         ...ATM_BUTTONS.LEFT_4,
-        label: 'Back',
-        onClick: () => navigate(-1),
+        label: disableButtons ? '' : 'Back',
+        onClick: disableButtons ? null : () => navigate(-1),
       },
       RIGHT_4: {
         ...ATM_BUTTONS.RIGHT_4,
-        label: 'Confirm',
-        onClick: () => amount > 0 && withdraw(amount),
+        label: disableButtons ? '' : 'Confirm',
+        onClick: disableButtons ? null : () => amount > 0 && withdraw(amount),
       },
     }
-  }, [amount, withdraw])
+  }, [amount, withdraw, disableButtons])
 
   const buttons = Object.values(buttonConfig)
 
@@ -59,6 +66,8 @@ export default function WithdrawPage() {
 
   if (isPending) {
     title = <span>Processing...</span>
+  } else if (isSuccess) {
+    title = data?.message || 'Withdrawal successful'
   } else if (error) {
     title = <span>{error?.response?.data?.message}</span>
   } else {
