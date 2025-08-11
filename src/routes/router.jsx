@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
+      {
+        path: '/enter-pin',
+        element: <EnterPinPage />,
+      },
       // routes
       {
         path: '/',
@@ -23,10 +27,6 @@ export const router = createBrowserRouter([
           {
             path: '/',
             element: <WelcomePage />,
-          },
-          {
-            path: '/enter-pin',
-            element: <EnterPinPage />,
           },
         ],
       },
