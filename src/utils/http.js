@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getSessionDetails } from '../utils/localstorage'
+import { getSessionDetails, removeSessionDetails } from '../utils/localstorage'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -23,6 +23,19 @@ api.interceptors.request.use((config) => {
 
   return config
 })
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error)
+    if ([401, 403].includes(error.response.status)) {
+      removeSessionDetails()
+    }
+    window.location.href = '/'
+
+    return Promise.reject(error)
+  },
+)
 
 const get = async (endpoint, config = {}) => {
   const response = await api.get(endpoint, config)

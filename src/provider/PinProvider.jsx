@@ -7,8 +7,10 @@ import { getSessionDetails, removeSessionDetails, setSessionDetails } from '../u
 import { CARD_BRAND } from '../constants/cardBrands'
 
 export function PinProvider({ children }) {
+  const sessionDetails = getSessionDetails()
+
   const [authState, setAuthState] = useState({
-    isAuthenticated: false,
+    isAuthenticated: sessionDetails?.isAuthenticated,
     cardBrand: null,
     user: null,
   })
@@ -19,8 +21,6 @@ export function PinProvider({ children }) {
   }, [])
 
   const initializeSession = useCallback(() => {
-    const sessionDetails = getSessionDetails()
-
     if (!sessionDetails.sessionId || !sessionDetails.token) {
       setAuthState((prev) => ({ ...prev, isAuthenticated: false }))
       return
@@ -57,6 +57,7 @@ export function PinProvider({ children }) {
         sessionId: data.sessionId,
         token: data.token,
         cardBrand: data?.cardInfo?.cardType,
+        isAuthenticated: true,
       })
 
       setAuthState((prev) => ({
