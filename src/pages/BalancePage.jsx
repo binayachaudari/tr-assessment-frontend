@@ -1,8 +1,22 @@
-import { useMemo } from 'react';
-import ATMScreen from '../components/ATMScreen';
-import { ATM_BUTTONS } from '../constants/Buttons';
+import { useMemo } from 'react'
+import ATMScreen from '../components/ATMScreen'
+import { ATM_BUTTONS } from '../constants/Buttons'
+import { useNavigate } from 'react-router-dom'
+import { transactionServices } from '../services/transactions.service'
+import { useQuery } from '@tanstack/react-query'
 
 export default function BalancePage() {
+  const navigate = useNavigate()
+
+  const {
+    data: balance,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['balance'],
+    queryFn: () => transactionServices.getBalance(),
+  })
+
   const buttonConfig = useMemo(() => {
     return {
       ...ATM_BUTTONS,
@@ -10,20 +24,27 @@ export default function BalancePage() {
       LEFT_4: {
         ...ATM_BUTTONS.LEFT_4,
         label: 'Back',
-        onClick: () => {},
+        onClick: () => navigate(-1),
       },
-    };
-  }, []);
+    }
+  }, [])
 
-  const buttons = Object.values(buttonConfig);
+  const buttons = Object.values(buttonConfig)
 
-  const title = (
-    <span>
-      Hi Peter Parker! <br />
-      Your balance is <br />
-      $1000.00
-    </span>
-  );
+  let title = ''
 
-  return <ATMScreen title={title} buttons={buttons} />;
+  if (isLoading) {
+    title = <span>Loading...</span>
+  } else if (error) {
+    title = <span>{error?.response?.data?.message}</span>
+  } else {
+    title = (
+      <span>
+        Hi Peter Parker! <br />
+        Your balance is <br />${Number(balance?.data?.balance || 0).toFixed(2)}
+      </span>
+    )
+  }
+
+  return <ATMScreen title={title} buttons={buttons} />
 }

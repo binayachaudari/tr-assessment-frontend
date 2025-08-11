@@ -1,15 +1,8 @@
-import stickerGraf from '../assets/sticker_graf.png';
-import systems from '../assets/systems.png';
-import Button from './Button';
+import stickerGraf from '../assets/sticker_graf.png'
+import systems from '../assets/systems.png'
+import Button from './Button'
 
-export default function ATMScreen({
-  title = 'Welcome to the ATM',
-  buttons = [],
-}) {
-  const handleButtonClick = (buttonId) => {
-    console.log(`${buttonId} button clicked`);
-  };
-
+export default function ATMScreen({ title = 'Welcome to the ATM', buttons = [] }) {
   return (
     <>
       <div className="bg-[#72acce] flex flex-col justify-between p-4 border-4 border-gray-300 text-white font-mono w-60 h-50 relative">
@@ -23,11 +16,7 @@ export default function ATMScreen({
             onClick={button?.onClick}
           />
         ))}
-        <img
-          className="absolute -bottom-27/50 -left-2/10"
-          src={stickerGraf}
-          alt="ATM Decoration"
-        />
+        <img className="absolute -bottom-27/50 -left-2/10" src={stickerGraf} alt="ATM Decoration" />
       </div>
       <div className="relative w-60 flex justify-end items-end">
         <img
@@ -37,5 +26,5 @@ export default function ATMScreen({
         />
       </div>
     </>
-  );
+  )
 }
