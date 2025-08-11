@@ -1,12 +1,111 @@
-# React + Vite
+# ATM Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based ATM simulation application built with modern web technologies. This application provides an interactive ATM experience with features like PIN entry, balance checking, deposits, and withdrawals.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+- **Node.js** (version 18 or higher)
+- **Yarn** (recommended) or **npm**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation & Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/binayachaudari/tr-assessment-frontend.git
+   cd frontend
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   yarn
+   # or
+   npm install
+   ```
+
+3. **Environment Setup** (if applicable)
+
+   ```bash
+   cp .env.example .env
+   # Edit .env file with your configuration
+   ```
+
+4. **Start Development Server**
+
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
+
+5. **Open your browser**
+   - Navigate to `http://localhost:5173`
+   - The application should now be running!
+
+## Browser
+
+Brave
+Brave 1.80.125 (Official Build) (arm64)
+Chromium: 138.0.7204.184
+
+## Available Scripts
+
+- `yarn dev` - Start development server
+- `yarn build` - Build for production
+- `yarn preview` - Preview production build
+- `yarn lint` - Run ESLint
+- `yarn lint:fix` - Fix ESLint issues
+- `yarn format` - Format code with Prettier
+
+## Key Libraries & Technologies
+
+### Core Framework
+
+- **React 19** - Modern React with latest features
+- **Vite** - Fast build tool and development server
+- **React Router DOM 7** - Client-side routing
+
+### State Management & Data Fetching
+
+- **TanStack React Query 4** - Server state management and caching
+- **React Context API** - Client-side state management
+
+### Styling & UI
+
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **clsx** - Conditional className utility
+
+### HTTP & API
+
+- **Axios** - HTTP client for API requests
+- **JWT Decode** - JWT token handling
+
+### Development Tools
+
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Husky** - Git hooks
+- **Vitest** - Unit testing framework
+- **Testing Library** - React component testing
+
+## Configuration
+
+The application uses several configuration files:
+
+- `vite.config.js` - Vite build configuration
+- `eslint.config.js` - ESLint rules
+- `.prettierrc` - Prettier formatting rules
+- `tailwind.config.js` - Tailwind CSS configuration
+
+## Features
+
+- **PIN Management** - Secure PIN entry and validation
+- **Balance Checking** - View account balance
+- **Deposits** - Simulate cash deposits
+- **Withdrawals** - Simulate cash withdrawals
+- **Card Brand Support** - Multiple credit card brand displays
+- **Responsive Design** - Works on various screen sizes
+- **Modern UI** - Clean, ATM-like interface
