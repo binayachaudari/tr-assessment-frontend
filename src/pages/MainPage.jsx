@@ -20,6 +20,11 @@ export default function MainPage() {
   const buttonConfig = useMemo(() => {
     return {
       ...ATM_BUTTONS,
+      LEFT_2: {
+        ...ATM_BUTTONS.LEFT_2,
+        label: 'Recent',
+        onClick: () => handleNavigation('/recent'),
+      },
       LEFT_3: {
         ...ATM_BUTTONS.LEFT_3,
         label: 'Withdraw',

@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import ATMScreen from '../components/ATMScreen';
-import { ATM_BUTTONS } from '../constants/Buttons';
-import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom'
+import ATMScreen from '../components/ATMScreen'
+import { ATM_BUTTONS } from '../constants/Buttons'
+import { useMemo } from 'react'
 
 export default function WelcomePage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleStartTransaction = () => {
-    navigate('/enter-pin');
-  };
+    navigate('/enter-pin')
+  }
 
   const buttonConfig = useMemo(() => {
     return {
@@ -18,21 +18,21 @@ export default function WelcomePage() {
         label: 'Enter PIN',
         onClick: handleStartTransaction,
       },
-    };
-  }, []);
+    }
+  }, [])
 
-  const buttons = Object.values(buttonConfig);
+  const buttons = Object.values(buttonConfig)
 
   const title = (
     <span>
       Welcome to the <br />
       ATM
     </span>
-  );
+  )
 
   return (
     <>
       <ATMScreen title={title} buttons={buttons} />
     </>
-  );
+  )
 }

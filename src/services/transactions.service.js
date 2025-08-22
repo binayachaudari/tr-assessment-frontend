@@ -17,4 +17,8 @@ export const transactionServices = {
   getBalance: async () => {
     return await get('/transactions/balance')
   },
+
+  getRecentTransaction: async () => {
+    return await get('/transactions/recent')
+  },
 }

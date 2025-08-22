@@ -9,6 +9,7 @@ import ExitPage from '../pages/ExitPage'
 import MainPage from '../pages/MainPage'
 import WelcomePage from '../pages/WelcomePage'
 import WithdrawPage from '../pages/WithdrawPage'
+import RecentTransactionPage from '../pages/RecentTransactionPage'
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
           {
             path: '/exit',
             element: <ExitPage />,
+          },
+          {
+            path: '/recent',
+            element: <RecentTransactionPage />,
           },
         ],
       },
